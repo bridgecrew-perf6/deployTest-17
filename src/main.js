@@ -7,7 +7,7 @@ const { urlencoded } = require('express');
 const mysql = require('mysql');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const route = require('./routes/index.js');
 
 app.use(express.urlencoded({ extended: true }));
