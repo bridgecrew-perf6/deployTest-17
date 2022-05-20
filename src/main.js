@@ -3,7 +3,6 @@ const express = require('express');
 const morgan = require('morgan');
 const methodOverride = require('method-override');  
 const { engine } = require('express-handlebars');
-const { urlencoded } = require('express');
 const mysql = require('mysql');
 
 const app = express();
