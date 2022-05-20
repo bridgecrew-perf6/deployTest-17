@@ -1,0 +1,91 @@
+<div class="mt-4">
+    <div class="container">
+        <div class="add book text-center font-weight-bold ">
+            <a href="/books/create">
+                <button class="btn btn-primary">
+                    <h3>Thêm sách</h3>
+                </button>
+            </a>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Dropdown
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/books/title_asc">Title: A -> Z</a></li>
+                    <li><a class="dropdown-item" href="/books/title_desc">Title: Z -> A</a></li>
+                    <li><a class="dropdown-item" href="/books/price_desc">Giá giảm dần</a></li>
+                    <li><a class="dropdown-item" href="/books/price_asc">Giá tăng dần</a></li>
+                </ul>
+            </li>
+        </div>
+
+
+        <div class="row g-4">
+            {{#each books}}
+            <div class="card col-lg-3 bg-black">
+                <div class="card bg-dark card-book-item">
+                    <a href="/books/{{this.title}}">
+                        <img class="card-img-top" src="{{this.image}}" alt={{this.title}}>
+                    </a>
+                </div>
+
+                <div class="card-body text-center">
+                    <h2>{{this.price}}.000 VNĐ</h2>
+
+                    <button class="rounded btn btn-danger btn-sm" data-bs-toggle="modal" data-id="{{this.book_id}}"
+                        data-bs-target="#delete-book">Xóa</button>
+
+                    <a href="/books/{{this.book_id}}/edit">
+                        <button class="rounded btn btn-warning btn-sm">Chỉnh sửa</button>
+                    </a>
+
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+{{!-- Confirm delete book --}}
+<div class="modal fade" id="delete-book" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa sách ?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn chắc chắn muốn xóa quyển sách này ???
+            </div>
+            <div class="modal-footer">
+                <button id="btn-delete-book" type="button" class="btn btn-danger">Xóa bỏ</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Delete hidden form --}}
+<form name="delete-book-form" method="POST"></form>
+
+<script>
+    var deleteBook = document.getElementById('delete-book');
+    var book_id;
+    var deleteForm = document.forms['delete-book-form']
+    var btnDeleteBook = document.getElementById('btn-delete-book');
+
+    deleteBook.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        book_id = button.getAttribute('data-id');
+    })
+
+    console.log(btnDeleteBook);
+    btnDeleteBook.onclick = function () {
+        deleteForm.action = '/books/' + book_id + '?_method=DELETE'
+        deleteForm.submit();
+    }
+
+</script>

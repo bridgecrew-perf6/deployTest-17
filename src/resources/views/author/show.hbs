@@ -1,0 +1,20 @@
+<div class="container p-5 bg-light">
+    <h2 class="text-left text-dark">Tác giả</h2>
+    <div class="row g-4">
+        {{#each authors}}
+        <div class="col-md-6 col-lg-3">
+            <div class="card bg-dark card-book-item">
+                <a href="/author/{{this.name}}">
+                    <img class="card-img-top" src="{{this.image}}"  width="200" height="230">
+                </a>
+                <div class="card-body text-center">
+                    <h6 class="card-title text-light">{{this.name}}</h6>
+                    <a href="/author/{{this.author_id}}/edit">
+                        <button class="rounded btn btn-primary btn-sm">Chỉnh sửa</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
